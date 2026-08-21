@@ -61,12 +61,6 @@
   .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(27,79,224,0.4);}
   .btn-primary svg{transition:transform .16s ease;}
   .btn-primary:hover svg{transform:translateX(3px);}
-  .btn-ghost{
-    background:transparent;
-    color:var(--ink);
-    border:1.5px solid var(--line);
-  }
-  .btn-ghost:hover{border-color:var(--ink);}
   .btn-block{width:100%;}
 
   .receipt-tag{
@@ -197,8 +191,6 @@
   .equip-media{border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg);}
   .equip-content > p{margin-top:14px; font-size:16px; color:var(--clay); line-height:1.7;}
 
-  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); border-left:1px solid var(--line);}
-
   /* ===== DEPOIMENTOS EM VÍDEO ===== */
   .video-test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
   .video-test-item{position:relative; border-radius:16px; overflow:hidden; box-shadow:var(--shadow-md); background:var(--ink); aspect-ratio:9/16;}
@@ -212,34 +204,18 @@
   .video-test-item .vt-play svg{
     width:56px; height:56px; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.4));
   }
-  .video-test-item .vt-tag{
-    position:absolute; top:12px; left:12px; z-index:2;
-    background:rgba(25,21,16,0.75); color:#fff; font-family:'Sora',sans-serif;
-    font-size:11px; font-weight:700; letter-spacing:0.4px; padding:5px 10px; border-radius:100px;
-  }
   @media (max-width:760px){ .video-test-grid{grid-template-columns:1fr; max-width:340px; margin:0 auto;} }
-  .video-featured{max-width:280px; margin:0 auto;}
-  .video-clients-row{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:600px; margin:0 auto;}
-  @media (max-width:600px){ .video-clients-row{grid-template-columns:1fr; max-width:280px;} }
-  .test-item{padding:26px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .test-item p{font-size:15px; color:var(--ink-soft); line-height:1.65; font-style:italic;}
-  .test-item .author{margin-top:14px; font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:var(--clay);}
 
-  /* ===== OFERTA: duas opções + garantia + vagas ===== */
+  /* ===== OFERTA: card único + garantia + vagas ===== */
   .offer-section{background:var(--panel);}
-  .offer-options{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  .offer-options.single{grid-template-columns:1fr; max-width:520px; margin:0 auto;}
+  .offer-options{grid-template-columns:1fr; max-width:520px; margin:0 auto; display:grid;}
   .offer-card{background:#fff; border-radius:18px; padding:30px; border:1px solid var(--line-soft); box-shadow:var(--shadow-sm); display:flex; flex-direction:column;}
   .offer-card.highlight{border:2px solid var(--blue); box-shadow:var(--shadow-md); position:relative;}
-  .offer-card .offer-tag{font-family:'Sora',sans-serif; font-size:11px; font-weight:800; letter-spacing:1px; color:var(--blue); text-transform:uppercase; margin-bottom:8px;}
   .offer-card h3{font-size:19px; font-weight:800; margin-bottom:6px;}
-  .offer-card .offer-sub{font-size:13.5px; color:var(--clay); margin-bottom:18px;}
   .offer-card ul{list-style:none; flex:1;}
   .offer-card li{display:flex; align-items:flex-start; gap:10px; padding:8px 0; font-size:14px; color:var(--ink-soft); border-bottom:1px solid var(--line-soft);}
   .offer-card li:last-child{border-bottom:none;}
   .offer-card li .chk{color:var(--green); flex-shrink:0; margin-top:1px;}
-  .offer-card li.off{color:var(--clay);}
-  .offer-card li.off .chk{color:var(--clay);}
   .offer-card .btn{margin-top:20px;}
   .offer-card .btn-note{margin-top:10px; font-size:12px; color:var(--clay); text-align:center;}
   .offer-info{margin-top:24px; background:var(--ink); border-radius:16px; padding:26px 30px; display:flex; gap:30px; flex-wrap:wrap;}
@@ -263,7 +239,6 @@
     .story-grid{gap:32px;}
     .proof-grid{grid-template-columns:repeat(2,1fr);}
     .list-grid-2{grid-template-columns:1fr;}
-    .test-grid{grid-template-columns:1fr;}
     .calc-results{grid-template-columns:1fr;}
     section{padding:48px 0;}
     .hero{padding-top:32px;}
@@ -286,7 +261,7 @@
   .reveal.show{opacity:1; transform:none;}
 
   /* itens dentro de grades ganham cascata (um depois do outro) */
-  .list-row.reveal, .spec-item.reveal, .receipt.reveal, .test-item.reveal{transition-delay:var(--stagger,0ms);}
+  .list-row.reveal, .spec-item.reveal, .receipt.reveal{transition-delay:var(--stagger,0ms);}
 
   .scroll-cue{
     display:flex; align-items:center; gap:10px;
@@ -637,7 +612,7 @@
       <h2>O que você <em>recebe</em></h2>
       <p>É assim que eu monto minha própria operação — e é isso que eu ofereço pra quem quer seguir o mesmo caminho.</p>
     </div>
-    <div class="offer-options single reveal">
+    <div class="offer-options reveal">
       <div class="offer-card highlight">
         <h3>Curso Blindacell</h3>
         <ul>
@@ -718,12 +693,6 @@
   const WA_LINK = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e quero saber mais sobre a blindagem de celulares.");
   document.querySelectorAll('.wa-link').forEach(el => el.setAttribute('href', WA_LINK));
 
-  const WA_LINK_CURSO = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e tenho interesse na opção SÓ O CURSO.");
-  document.querySelectorAll('.wa-link-curso').forEach(el => el.setAttribute('href', WA_LINK_CURSO));
-
-  const WA_LINK_KIT = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e tenho interesse na opção CURSO + KIT DE LÍQUIDOS.");
-  document.querySelectorAll('.wa-link-kit').forEach(el => el.setAttribute('href', WA_LINK_KIT));
-
   // ===== Tilt 3D na foto do hero ao passar o mouse (sensação de profundidade) =====
   (function(){
     const frame = document.querySelector('.hero-media .frame');
@@ -788,7 +757,7 @@
   updateCalc();
 
   // Transforma grades em cascata: cada item de dentro revela em sequência
-  document.querySelectorAll('.proof-grid.reveal, .list-rows.reveal, .spec-grid.reveal, .list-grid-2.reveal, .test-grid.reveal').forEach(container => {
+  document.querySelectorAll('.proof-grid.reveal, .list-rows.reveal, .spec-grid.reveal, .list-grid-2.reveal').forEach(container => {
     container.classList.remove('reveal');
     Array.from(container.children).forEach((child, idx) => {
       child.classList.add('reveal');
