@@ -218,6 +218,9 @@
     font-size:11px; font-weight:700; letter-spacing:0.4px; padding:5px 10px; border-radius:100px;
   }
   @media (max-width:760px){ .video-test-grid{grid-template-columns:1fr; max-width:340px; margin:0 auto;} }
+  .video-featured{max-width:280px; margin:0 auto;}
+  .video-clients-row{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; max-width:600px; margin:0 auto;}
+  @media (max-width:600px){ .video-clients-row{grid-template-columns:1fr; max-width:280px;} }
   .test-item{padding:26px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
   .test-item p{font-size:15px; color:var(--ink-soft); line-height:1.65; font-style:italic;}
   .test-item .author{margin-top:14px; font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:var(--clay);}
@@ -669,10 +672,24 @@
 <section id="depoimentos">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Quem já <em>começou</em></h2>
-      <p>Clientes reais mostrando o resultado da blindagem no próprio celular.</p>
+      <h2>Veja o atendimento <em>na prática</em></h2>
+      <p>Eu mesmo fazendo uma blindagem, do jeito que ela realmente acontece no dia a dia.</p>
     </div>
-    <div class="video-test-grid reveal">
+    <div class="video-test-grid video-featured reveal">
+      <div class="video-test-item">
+        <span class="vt-tag">Gabriel em atendimento</span>
+        <video src="videos/depoimento3.mp4" poster="videos/capa3.jpg" playsinline preload="none" controls></video>
+        <div class="vt-play" data-target="2">
+          <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head reveal" style="margin-top:52px;">
+      <h2>Clientes reais, <em>resultado real</em></h2>
+      <p>Pessoas que blindei mostrando o celular depois do atendimento.</p>
+    </div>
+    <div class="video-test-grid video-clients-row reveal">
       <div class="video-test-item">
         <span class="vt-tag">Cliente real</span>
         <video src="videos/depoimento1.mp4" poster="videos/capa1.jpg" playsinline preload="none" controls></video>
@@ -687,17 +704,10 @@
           <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
         </div>
       </div>
-      <div class="video-test-item">
-        <span class="vt-tag">Cliente real</span>
-        <video src="videos/depoimento3.mp4" poster="videos/capa3.jpg" playsinline preload="none" controls></video>
-        <div class="vt-play" data-target="2">
-          <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
-        </div>
-      </div>
     </div>
 
-    <div class="section-head reveal" style="margin-top:48px;">
-      <h2>E o que eles <em>dizem</em></h2>
+    <div class="section-head reveal" style="margin-top:52px;">
+      <h2>Quem já <em>começou</em></h2>
     </div>
     <div class="test-grid reveal">
       <div class="test-item">
