@@ -11,7 +11,7 @@
 <meta property="og:image" content="img/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@600&display=swap" fetchpriority="high">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;600;700;800&family=IBM+Plex+Mono:wght@600&display=optional" fetchpriority="high">
 <style>
   :root{
     --ink:#191510;
@@ -700,45 +700,54 @@
   const WA_LINK = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e quero saber mais sobre a blindagem de celulares.");
   document.querySelectorAll('.wa-link').forEach(el => el.setAttribute('href', WA_LINK));
 
-  // ===== Tilt 3D na foto do hero ao passar o mouse (sensação de profundidade) =====
-  (function(){
-    const frame = document.querySelector('.hero-media .frame');
-    const img = document.querySelector('.hero-media .frame img');
-    if(!frame || !img) return;
-    frame.addEventListener('mousemove', (e) => {
-      const r = frame.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      img.style.transform = `scale(1.06) rotateX(${py * -6}deg) rotateY(${px * 6}deg)`;
-    });
-    frame.addEventListener('mouseleave', () => { img.style.transform = 'scale(1) rotateX(0) rotateY(0)'; });
-    frame.style.perspective = '800px';
-  })();
-
-  // ===== Paralaxe suave nas fotos ao rolar =====
-  (function(){
-    const imgs = document.querySelectorAll('.story-media .main-shot img, .system-media img, .equip-media img');
-    if(!imgs.length) return;
-    let ticking = false;
-    function update(){
-      imgs.forEach(img => {
-        const r = img.getBoundingClientRect();
-        const vh = window.innerHeight;
-        if(r.bottom < 0 || r.top > vh) return;
-        const center = r.top + r.height/2 - vh/2;
-        img.style.transform = 'translateY(' + (center * -0.06) + 'px) scale(1.1)';
+  // ===== Animações não-essenciais: adiadas até a página estar ociosa =====
+  function initEnhancements(){
+    // Tilt 3D na foto do hero ao passar o mouse (sensação de profundidade)
+    (function(){
+      const frame = document.querySelector('.hero-media .frame');
+      const img = document.querySelector('.hero-media .frame img');
+      if(!frame || !img) return;
+      frame.addEventListener('mousemove', (e) => {
+        const r = frame.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        img.style.transform = `scale(1.06) rotateX(${py * -6}deg) rotateY(${px * 6}deg)`;
       });
-      ticking = false;
-    }
-    function onScroll(){
-      if(!ticking){
-        requestAnimationFrame(update);
-        ticking = true;
+      frame.addEventListener('mouseleave', () => { img.style.transform = 'scale(1) rotateX(0) rotateY(0)'; });
+      frame.style.perspective = '800px';
+    })();
+
+    // Paralaxe suave nas fotos ao rolar
+    (function(){
+      const imgs = document.querySelectorAll('.story-media .main-shot img, .system-media img, .equip-media img');
+      if(!imgs.length) return;
+      let ticking = false;
+      function update(){
+        imgs.forEach(img => {
+          const r = img.getBoundingClientRect();
+          const vh = window.innerHeight;
+          if(r.bottom < 0 || r.top > vh) return;
+          const center = r.top + r.height/2 - vh/2;
+          img.style.transform = 'translateY(' + (center * -0.06) + 'px) scale(1.1)';
+        });
+        ticking = false;
       }
-    }
-    window.addEventListener('scroll', onScroll, {passive:true});
-    update();
-  })();
+      function onScroll(){
+        if(!ticking){
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      update();
+    })();
+  }
+
+  if('requestIdleCallback' in window){
+    requestIdleCallback(initEnhancements, {timeout: 2000});
+  } else {
+    window.addEventListener('load', () => setTimeout(initEnhancements, 200));
+  }
 
   const aparelhosRange = document.getElementById('aparelhosRange');
   const ticketRange = document.getElementById('ticketRange');
