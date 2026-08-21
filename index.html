@@ -201,22 +201,27 @@
   .test-item p{font-size:15px; color:var(--ink-soft); line-height:1.65; font-style:italic;}
   .test-item .author{margin-top:14px; font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:var(--clay);}
 
-  /* ===== OFERTA: incluso + garantia + vagas ===== */
+  /* ===== OFERTA: duas opções + garantia + vagas ===== */
   .offer-section{background:var(--panel);}
-  .offer-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:0; border-radius:20px; overflow:hidden; box-shadow:var(--shadow-md);}
-  .offer-includes{background:#fff; padding:36px;}
-  .offer-includes h3{font-size:19px; font-weight:800; margin-bottom:18px;}
-  .offer-includes ul{list-style:none;}
-  .offer-includes li{display:flex; align-items:flex-start; gap:10px; padding:9px 0; font-size:14.5px; color:var(--ink-soft); border-bottom:1px solid var(--line-soft);}
-  .offer-includes li:last-child{border-bottom:none;}
-  .offer-includes li .chk{color:var(--green); flex-shrink:0; margin-top:1px;}
-  .offer-side{background:var(--ink); padding:36px; display:flex; flex-direction:column; justify-content:center; gap:22px;}
-  .offer-badge{display:inline-flex; align-items:center; gap:8px; background:rgba(63,107,50,0.18); color:#9CDB7F; font-size:12.5px; font-weight:700; padding:8px 14px; border-radius:100px; width:fit-content;}
-  .offer-badge svg{flex-shrink:0;}
-  .offer-side h4{color:#fff; font-size:16px; font-weight:700; margin-bottom:6px;}
-  .offer-side p{color:rgba(255,255,255,0.6); font-size:13.5px; line-height:1.55;}
-  .offer-divider{height:1px; background:rgba(255,255,255,0.12);}
-  @media (max-width:820px){ .offer-grid{grid-template-columns:1fr;} }
+  .offer-options{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .offer-card{background:#fff; border-radius:18px; padding:30px; border:1px solid var(--line-soft); box-shadow:var(--shadow-sm); display:flex; flex-direction:column;}
+  .offer-card.highlight{border:2px solid var(--blue); box-shadow:var(--shadow-md); position:relative;}
+  .offer-card .offer-tag{font-family:'Sora',sans-serif; font-size:11px; font-weight:800; letter-spacing:1px; color:var(--blue); text-transform:uppercase; margin-bottom:8px;}
+  .offer-card h3{font-size:19px; font-weight:800; margin-bottom:6px;}
+  .offer-card .offer-sub{font-size:13.5px; color:var(--clay); margin-bottom:18px;}
+  .offer-card ul{list-style:none; flex:1;}
+  .offer-card li{display:flex; align-items:flex-start; gap:10px; padding:8px 0; font-size:14px; color:var(--ink-soft); border-bottom:1px solid var(--line-soft);}
+  .offer-card li:last-child{border-bottom:none;}
+  .offer-card li .chk{color:var(--green); flex-shrink:0; margin-top:1px;}
+  .offer-card li.off{color:var(--clay);}
+  .offer-card li.off .chk{color:var(--clay);}
+  .offer-card .btn{margin-top:20px;}
+  .offer-info{margin-top:24px; background:var(--ink); border-radius:16px; padding:26px 30px; display:flex; gap:30px; flex-wrap:wrap;}
+  .offer-info .item{flex:1; min-width:220px; display:flex; align-items:flex-start; gap:12px;}
+  .offer-info .item svg{flex-shrink:0; margin-top:2px; color:#9CDB7F;}
+  .offer-info h4{color:#fff; font-size:15px; font-weight:700; margin-bottom:4px;}
+  .offer-info p{color:rgba(255,255,255,0.6); font-size:13.5px; line-height:1.55;}
+  @media (max-width:760px){ .offer-options{grid-template-columns:1fr;} }
 
   .final-cta{margin-top:52px; background:var(--ink); border-radius:20px; padding:56px 40px; text-align:center;}
   .final-cta h2{color:#fff; font-size:clamp(26px,3.6vw,38px); font-weight:800;}
@@ -287,7 +292,7 @@
       <div class="logo hero-logo"><span class="mark"></span>BLINDACELL</div>
       <h1>Transforme a blindagem de celulares na sua <em>próxima fonte de renda</em>.</h1>
       <p class="lead">Ganhe entre R$200 e R$500 por atendimento com um serviço premium, rápido e de alta margem. Uma única blindagem leva poucos minutos para ser concluída.</p>
-      <blockquote>Curso completo + kit profissional de blindagem, tudo incluso num único pacote — aprenda a técnica e já comece a atender com o equipamento certo.</blockquote>
+      <blockquote>Curso completo de blindagem, com ou sem o kit incluso — você escolhe se quer só aprender a técnica ou já sair equipado pra atender.</blockquote>
       <div class="hero-ctas">
         <a href="#vsl" class="btn btn-primary">QUERO COMEÇAR A LUCRAR
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -582,34 +587,52 @@
 <section class="offer-section">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>O que vem no <em>pacote completo</em></h2>
-      <p>Curso e kit físico juntos, num único investimento — você recebe tudo pra começar a atender.</p>
+      <h2>Escolha como quer <em>começar</em></h2>
+      <p>Dois jeitos de entrar: só o curso, ou curso com o kit já incluso. Você decide o que faz mais sentido pra você.</p>
     </div>
-    <div class="offer-grid reveal">
-      <div class="offer-includes">
-        <h3>Está incluso</h3>
+    <div class="offer-options reveal">
+      <div class="offer-card">
+        <div class="offer-tag">Opção 1</div>
+        <h3>Só o Curso</h3>
+        <p class="offer-sub">Pra quem já tem ou prefere comprar o material por conta própria.</p>
         <ul>
           <li><span class="chk">✓</span> Curso completo em vídeo, do preparo à entrega ao cliente</li>
-          <li><span class="chk">✓</span> Kit físico: líquido de blindagem (base + acabamento) e máquina de cura UV</li>
           <li><span class="chk">✓</span> Estratégias de venda e como precificar seus atendimentos</li>
           <li><span class="chk">✓</span> Acesso à lista de fornecedores homologados</li>
           <li><span class="chk">✓</span> Plataforma de treinamento com acesso permanente</li>
           <li><span class="chk">✓</span> Suporte vitalício para tirar dúvidas</li>
+          <li class="off"><span class="chk">–</span> Kit físico (líquido + máquina) não incluso</li>
         </ul>
+        <a href="#" class="btn btn-ghost btn-block wa-link-curso">QUERO SÓ O CURSO</a>
       </div>
-      <div class="offer-side">
-        <div class="offer-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"/></svg>
-          Garantia de 7 dias
-        </div>
+      <div class="offer-card highlight">
+        <div class="offer-tag">Opção 2 · Mais completa</div>
+        <h3>Curso + Kit</h3>
+        <p class="offer-sub">Pra quem quer sair já equipado, pronto pra atender.</p>
+        <ul>
+          <li><span class="chk">✓</span> Curso completo em vídeo, do preparo à entrega ao cliente</li>
+          <li><span class="chk">✓</span> Estratégias de venda e como precificar seus atendimentos</li>
+          <li><span class="chk">✓</span> Acesso à lista de fornecedores homologados</li>
+          <li><span class="chk">✓</span> Plataforma de treinamento com acesso permanente</li>
+          <li><span class="chk">✓</span> Suporte vitalício para tirar dúvidas</li>
+          <li><span class="chk">✓</span> Kit físico: líquido de blindagem (base + acabamento) e máquina de cura UV</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-block wa-link-kit">QUERO CURSO + KIT</a>
+      </div>
+    </div>
+    <div class="offer-info reveal">
+      <div class="item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.2"/></svg>
         <div>
-          <h4>Risco zero pra você</h4>
+          <h4>Garantia de 7 dias</h4>
           <p>Se em até 7 dias você sentir que não é pra você, devolvemos o valor investido.</p>
         </div>
-        <div class="offer-divider"></div>
+      </div>
+      <div class="item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2.2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2.2"/></svg>
         <div>
           <h4>Vagas limitadas por turma</h4>
-          <p>Cada turma abre com apenas 20 vagas, pra manter o suporte próximo com todo mundo. Fale com a gente pra saber se ainda tem vaga aberta.</p>
+          <p>Cada turma abre com apenas 20 vagas. Fale com a gente pra saber se ainda tem vaga aberta.</p>
         </div>
       </div>
     </div>
@@ -655,6 +678,12 @@
 <script>
   const WA_LINK = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e quero saber mais sobre a blindagem de celulares.");
   document.querySelectorAll('.wa-link').forEach(el => el.setAttribute('href', WA_LINK));
+
+  const WA_LINK_CURSO = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e tenho interesse na opção SÓ O CURSO.");
+  document.querySelectorAll('.wa-link-curso').forEach(el => el.setAttribute('href', WA_LINK_CURSO));
+
+  const WA_LINK_KIT = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e tenho interesse na opção CURSO + KIT.");
+  document.querySelectorAll('.wa-link-kit').forEach(el => el.setAttribute('href', WA_LINK_KIT));
 
   // ===== Tilt 3D na foto do hero ao passar o mouse (sensação de profundidade) =====
   (function(){
