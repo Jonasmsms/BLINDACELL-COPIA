@@ -104,7 +104,7 @@
 
   .hero-media{position:relative;}
   .hero-media .frame{border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); background:var(--ink); aspect-ratio:1/1; position:relative;}
-  .hero-media .frame img{width:100%; height:100%; object-fit:cover;}
+  .hero-media .frame img{width:100%; height:100%; object-fit:cover; transition:transform .1s linear;}
   .float-card{position:absolute; left:20px; bottom:20px; background:rgba(25,21,16,0.85); border-radius:10px; padding:12px 16px; color:#fff;}
   .float-card .lbl{font-size:11px; color:rgba(255,255,255,0.55); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
   .float-card .txt{font-family:'Sora',sans-serif; font-weight:600; font-size:14px; margin-top:2px;}
@@ -258,30 +258,7 @@
   }
   #skip-intro:hover{color:#fff;}
 
-  /* ===== NAV FLUTUANTE ===== */
-  .site-nav{
-    position:fixed; top:0; left:0; right:0; z-index:500;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:18px 28px;
-    background:rgba(244,241,234,0.75);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-    opacity:0; transform:translateY(-10px);
-    transition:opacity .6s ease, transform .6s ease;
-    pointer-events:none;
-  }
-  .site-nav.show{opacity:1; transform:none; pointer-events:auto;}
-  .site-nav .nav-mark{font-family:'Sora',sans-serif; font-weight:800; font-size:15px; letter-spacing:2px; color:var(--ink);}
-  .site-nav .nav-links{display:flex; gap:26px;}
-  .site-nav .nav-links a{
-    font-family:'Sora',sans-serif; font-weight:600; font-size:12.5px; letter-spacing:1px;
-    color:var(--clay); text-transform:uppercase;
-  }
-  .site-nav .nav-links a:hover{color:var(--ink);}
-  @media (max-width:700px){ .site-nav .nav-links{display:none;} }
-
-  .scroll-cue{
+  /* ===== FICHA TÉCNICA (spec grid) ===== */
     display:flex; align-items:center; gap:10px;
     margin-top:38px;
     font-family:'Sora',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:1.5px;
@@ -300,46 +277,6 @@
   .spec-item .k{font-family:'Sora',sans-serif; font-size:11px; font-weight:700; letter-spacing:1.5px; color:rgba(255,255,255,0.45); text-transform:uppercase;}
   .spec-item .v{margin-top:8px; font-family:'Sora',sans-serif; font-size:18px; font-weight:700; color:#fff;}
   @media (max-width:700px){ .spec-grid{grid-template-columns:repeat(2,1fr);} }
-
-  /* ===== PAINEL DESLIZANTE (CTA) ===== */
-  #sticky-cta{
-    position:fixed; left:0; right:0; bottom:0; z-index:600;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px 22px;
-    background:rgba(25,21,16,0.92);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    transform:translateY(100%);
-    transition:transform .5s ease;
-  }
-  #sticky-cta.show{transform:translateY(0);}
-  #sticky-cta .lbl{font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:#fff;}
-  #sticky-cta .lbl small{display:block; font-weight:500; font-size:11.5px; color:rgba(255,255,255,0.5); margin-top:2px;}
-  #sticky-cta .btn{padding:12px 20px; font-size:13.5px;}
-
-  #price-panel{
-    position:fixed; inset:0; z-index:700;
-    display:flex; align-items:flex-end; justify-content:center;
-    background:rgba(15,12,9,0.55);
-    opacity:0; visibility:hidden;
-    transition:opacity .3s ease, visibility .3s ease;
-  }
-  #price-panel.show{opacity:1; visibility:visible;}
-  #price-panel .panel{
-    width:100%; max-width:480px;
-    background:#fff; border-radius:22px 22px 0 0;
-    padding:32px 28px 30px;
-    transform:translateY(100%);
-    transition:transform .4s ease;
-    text-align:center;
-  }
-  #price-panel.show .panel{transform:translateY(0);}
-  #price-panel .kicker{font-family:'Sora',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:1.5px; color:var(--clay); text-transform:uppercase;}
-  #price-panel h3{margin-top:8px; font-size:20px; font-weight:800;}
-  #price-panel .value{margin-top:14px; font-family:'Sora',sans-serif; font-size:32px; font-weight:800; color:var(--blue);}
-  #price-panel .value small{font-size:14px; font-weight:600; color:var(--clay); display:block; margin-top:2px;}
-  #price-panel .btn{margin-top:20px;}
-  #price-panel .close-panel{margin-top:14px; font-size:13px; color:var(--clay); font-weight:600; background:none; border:none; cursor:pointer;}
 </style>
 </head>
 <body>
@@ -349,16 +286,6 @@
   <div class="intro-pct">CARREGANDO EXPERIÊNCIA <b id="intro-num">00</b>%</div>
   <button id="skip-intro">PULAR INTRO ↦</button>
 </div>
-
-<nav class="site-nav" id="site-nav">
-  <div class="nav-mark">BLINDACELL</div>
-  <div class="nav-links">
-    <a href="#sistema">SISTEMA</a>
-    <a href="#equipamento">EQUIPAMENTO</a>
-    <a href="#aprendizado">APRENDIZADO</a>
-    <a href="#" class="wa-link">FALAR NO WHATSAPP</a>
-  </div>
-</nav>
 
 <header class="hero">
   <div class="wrap hero-inner">
@@ -688,21 +615,6 @@
   </div>
 </section>
 
-<div id="sticky-cta">
-  <div class="lbl">Blindacell<small>Kit completo · fale com a gente</small></div>
-  <button class="btn btn-primary" id="open-panel">VER OFERTA</button>
-</div>
-
-<div id="price-panel">
-  <div class="panel">
-    <div class="kicker">Blindacell · Kit completo</div>
-    <h3>Comece hoje sua nova fonte de renda</h3>
-    <div class="value">Fale com a gente<small>Condições e formas de pagamento no WhatsApp</small></div>
-    <a href="#" class="btn btn-primary btn-block wa-link">FALAR NO WHATSAPP</a>
-    <button class="close-panel" id="close-panel">Fechar</button>
-  </div>
-</div>
-
 <footer>
   <div class="wrap">
     <p>© 2026 Blindacell. Resultados variam conforme dedicação, região e execução do método.</p>
@@ -721,40 +633,22 @@
     let pct = 0;
     const finish = () => { intro.classList.add('hide'); };
     const timer = setInterval(() => {
-      pct += Math.floor(Math.random()*12)+6;
-      if(pct >= 100){ pct = 100; clearInterval(timer); setTimeout(finish, 250); }
+      pct += Math.floor(Math.random()*8)+4;
+      if(pct >= 100){ pct = 100; clearInterval(timer); setTimeout(finish, 400); }
       num.textContent = String(pct).padStart(2,'0');
-    }, 140);
+    }, 220);
     skip.addEventListener('click', () => { clearInterval(timer); finish(); });
-    setTimeout(finish, 2600); // trava de segurança
+    setTimeout(finish, 4200); // trava de segurança
   })();
 
-  // ===== Nav flutuante ao rolar =====
+  // ===== Leve parallax na foto do hero ao rolar =====
   (function(){
-    const nav = document.getElementById('site-nav');
-    const onScroll = () => { nav.classList.toggle('show', window.scrollY > 80); };
-    window.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
-  })();
-
-  // ===== Barra fixa inferior (aparece depois do hero) =====
-  (function(){
-    const bar = document.getElementById('sticky-cta');
-    const heroEl = document.querySelector('.hero');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => bar.classList.toggle('show', !e.isIntersecting));
-    }, {threshold:0});
-    if(heroEl) io.observe(heroEl);
-  })();
-
-  // ===== Painel de oferta =====
-  (function(){
-    const panel = document.getElementById('price-panel');
-    const openBtn = document.getElementById('open-panel');
-    const closeBtn = document.getElementById('close-panel');
-    if(openBtn) openBtn.addEventListener('click', () => panel.classList.add('show'));
-    if(closeBtn) closeBtn.addEventListener('click', () => panel.classList.remove('show'));
-    if(panel) panel.addEventListener('click', (e) => { if(e.target === panel) panel.classList.remove('show'); });
+    const img = document.querySelector('.hero-media .frame img');
+    if(!img) return;
+    window.addEventListener('scroll', () => {
+      const y = Math.min(window.scrollY, 400);
+      img.style.transform = 'scale(1.08) translateY(' + (y * 0.06) + 'px)';
+    }, {passive:true});
   })();
 
   const aparelhosRange = document.getElementById('aparelhosRange');
