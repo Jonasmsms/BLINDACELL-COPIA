@@ -228,6 +228,7 @@
   /* ===== OFERTA: duas opções + garantia + vagas ===== */
   .offer-section{background:var(--panel);}
   .offer-options{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .offer-options.single{grid-template-columns:1fr; max-width:520px; margin:0 auto;}
   .offer-card{background:#fff; border-radius:18px; padding:30px; border:1px solid var(--line-soft); box-shadow:var(--shadow-sm); display:flex; flex-direction:column;}
   .offer-card.highlight{border:2px solid var(--blue); box-shadow:var(--shadow-md); position:relative;}
   .offer-card .offer-tag{font-family:'Sora',sans-serif; font-size:11px; font-weight:800; letter-spacing:1px; color:var(--blue); text-transform:uppercase; margin-bottom:8px;}
@@ -614,29 +615,12 @@
 <section class="offer-section">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Escolha como quer <em>começar</em></h2>
-      <p>É assim que eu monto minha própria operação — e é isso que eu ofereço pra quem quer seguir o mesmo caminho. Dois jeitos de entrar: só o curso, ou curso com o kit de líquidos já incluso.</p>
+      <h2>O que você <em>recebe</em></h2>
+      <p>É assim que eu monto minha própria operação — e é isso que eu ofereço pra quem quer seguir o mesmo caminho.</p>
     </div>
-    <div class="offer-options reveal">
-      <div class="offer-card">
-        <div class="offer-tag">Opção 1</div>
-        <h3>Só o Curso</h3>
-        <p class="offer-sub">Pra quem já tem ou prefere comprar o material por conta própria.</p>
-        <ul>
-          <li><span class="chk">✓</span> Aulas gravadas em vídeo, passo a passo, do preparo à entrega ao cliente</li>
-          <li><span class="chk">✓</span> Estratégias de venda e como precificar seus atendimentos</li>
-          <li><span class="chk">✓</span> Acesso à lista de fornecedores homologados</li>
-          <li><span class="chk">✓</span> Plataforma de treinamento com acesso permanente</li>
-          <li><span class="chk">✓</span> Suporte vitalício direto no WhatsApp</li>
-          <li class="off"><span class="chk">–</span> Kit físico (líquido + máquina) não incluso</li>
-        </ul>
-        <a href="#" class="btn btn-ghost btn-block wa-link-curso">QUERO SÓ O CURSO</a>
-        <p class="btn-note">Valores e condições no WhatsApp</p>
-      </div>
+    <div class="offer-options single reveal">
       <div class="offer-card highlight">
-        <div class="offer-tag">Opção 2 · Mais completa</div>
-        <h3>Curso + Kit de Líquidos</h3>
-        <p class="offer-sub">Pra quem quer sair já com o principal em mãos, pronto pra atender.</p>
+        <h3>Curso Blindacell</h3>
         <ul>
           <li><span class="chk">✓</span> Aulas gravadas em vídeo, passo a passo, do preparo à entrega ao cliente</li>
           <li><span class="chk">✓</span> Estratégias de venda e como precificar seus atendimentos</li>
@@ -644,9 +628,8 @@
           <li><span class="chk">✓</span> Plataforma de treinamento com acesso permanente</li>
           <li><span class="chk">✓</span> Suporte vitalício direto no WhatsApp</li>
           <li><span class="chk">✓</span> Kit de líquidos de blindagem (base + acabamento) — quantidade inicial inclusa</li>
-          <li class="off"><span class="chk">i</span> Máquina de cura UV: nós indicamos onde comprar, não é enviada por nós</li>
         </ul>
-        <a href="#" class="btn btn-primary btn-block wa-link-kit">QUERO CURSO + KIT DE LÍQUIDOS</a>
+        <a href="#" class="btn btn-primary btn-block wa-link">QUERO COMEÇAR AGORA</a>
         <p class="btn-note">Valores e condições no WhatsApp</p>
       </div>
     </div>
@@ -672,55 +655,26 @@
 <section id="depoimentos">
   <div class="wrap">
     <div class="section-head reveal">
-      <h2>Veja o atendimento <em>na prática</em></h2>
-      <p>Eu mesmo fazendo uma blindagem, do jeito que ela realmente acontece no dia a dia.</p>
+      <h2>Veja o resultado da blindagem <em>na prática</em></h2>
     </div>
-    <div class="video-test-grid video-featured reveal">
+    <div class="video-test-grid reveal">
       <div class="video-test-item">
-        <span class="vt-tag">Gabriel em atendimento</span>
         <video src="videos/depoimento3.mp4" poster="videos/capa3.jpg" playsinline preload="none" controls></video>
         <div class="vt-play" data-target="2">
           <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
         </div>
       </div>
-    </div>
-
-    <div class="section-head reveal" style="margin-top:52px;">
-      <h2>Clientes reais, <em>resultado real</em></h2>
-      <p>Pessoas que blindei mostrando o celular depois do atendimento.</p>
-    </div>
-    <div class="video-test-grid video-clients-row reveal">
       <div class="video-test-item">
-        <span class="vt-tag">Cliente real</span>
         <video src="videos/depoimento1.mp4" poster="videos/capa1.jpg" playsinline preload="none" controls></video>
         <div class="vt-play" data-target="0">
           <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
         </div>
       </div>
       <div class="video-test-item">
-        <span class="vt-tag">Cliente real</span>
         <video src="videos/depoimento2.mp4" poster="videos/capa2.jpg" playsinline preload="none" controls></video>
         <div class="vt-play" data-target="1">
           <svg viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="12" fill="rgba(0,0,0,0.35)"/><path d="M10 8.5v7l5.5-3.5z" fill="white"/></svg>
         </div>
-      </div>
-    </div>
-
-    <div class="section-head reveal" style="margin-top:52px;">
-      <h2>Quem já <em>começou</em></h2>
-    </div>
-    <div class="test-grid reveal">
-      <div class="test-item">
-        <p>Comecei atendendo colegas de trabalho no fim de semana. Hoje já tenho clientes recorrentes toda semana.</p>
-        <div class="author">Rafael M.</div>
-      </div>
-      <div class="test-item">
-        <p>Achei que fosse difícil, mas o passo a passo é simples. Na primeira semana já fiz meus primeiros serviços.</p>
-        <div class="author">Juliana S.</div>
-      </div>
-      <div class="test-item">
-        <p>O suporte fez toda a diferença. Sempre que travei em alguma dúvida, tive resposta rápida.</p>
-        <div class="author">Diego A.</div>
       </div>
     </div>
 
