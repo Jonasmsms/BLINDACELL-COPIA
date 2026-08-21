@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blindacell — Transforme a blindagem de celulares na sua próxima fonte de renda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#191510;
+    --ink-soft:#4A4136;
+    --clay:#6B6153;
+    --blue:#1B4FE0;
+    --blue-deep:#123AAE;
+    --paper:#F4F1EA;
+    --panel:#EDE8DD;
+    --line: rgba(25,21,16,0.12);
+    --line-soft: rgba(25,21,16,0.07);
+    --green:#3F6B32;
+    --green-bg:#E8EFE2;
+    --shadow-sm: 0 1px 2px rgba(25,21,16,0.06), 0 2px 8px rgba(25,21,16,0.05);
+    --shadow-md: 0 4px 16px rgba(25,21,16,0.10);
+    --shadow-lg: 0 20px 50px rgba(25,21,16,0.16);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Manrope', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%; display:block;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  h1,h2,h3{font-family:'Sora', sans-serif; letter-spacing:-0.015em; line-height:1.1; color:var(--ink);}
+
+  ::selection{background:var(--blue); color:#fff;}
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:17px 28px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    transition:transform .16s ease, box-shadow .16s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--blue);
+    color:#fff;
+    box-shadow:0 6px 18px rgba(27,79,224,0.30);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(27,79,224,0.4);}
+  .btn-primary svg{transition:transform .16s ease;}
+  .btn-primary:hover svg{transform:translateX(3px);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border:1.5px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-block{width:100%;}
+
+  .receipt-tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    color:var(--green);
+    background:var(--green-bg);
+    border-radius:6px;
+    padding:5px 10px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .receipt-tag::before{content:"✓"; font-size:11px;}
+
+  .logo{font-family:'Sora',sans-serif; font-weight:800; font-size:19px; letter-spacing:-0.01em; display:flex; align-items:center; gap:8px;}
+  .logo .mark{width:9px;height:20px;border-radius:2px;background:var(--blue); display:inline-block; transform:skewX(-10deg);}
+  .hero-logo{margin-bottom:34px;}
+
+  .hero{padding:44px 0 8px;}
+  .hero-inner{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
+  .hero h1{font-size:clamp(32px, 4.2vw, 50px); font-weight:800;}
+  .hero h1 em{font-style:normal; color:var(--blue);}
+  .hero p.lead{margin-top:20px; font-size:18px; line-height:1.6; color:var(--ink-soft); max-width:520px;}
+  .hero blockquote{margin-top:20px; border-left:2px solid var(--line); padding-left:16px; font-style:italic; color:var(--clay); font-size:15px; line-height:1.6; max-width:520px;}
+  .hero-ctas{margin-top:30px; display:flex; flex-wrap:wrap; gap:12px;}
+
+  .hero-stats{margin-top:34px; display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--line); padding-top:20px;}
+  .stat{padding:0 22px 0 0; margin-right:22px; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none; margin-right:0; padding-right:0;}
+  .stat .v{font-family:'Sora',sans-serif; font-weight:700; font-size:16px; color:var(--ink); line-height:1.3;}
+  .stat .k{margin-top:3px; font-size:12.5px; color:var(--clay);}
+
+  .hero-media{position:relative;}
+  .hero-media .frame{border-radius:18px; overflow:hidden; box-shadow:var(--shadow-lg); background:var(--ink); aspect-ratio:1/1; position:relative;}
+  .hero-media .frame img{width:100%; height:100%; object-fit:cover;}
+  .float-card{position:absolute; left:20px; bottom:20px; background:rgba(25,21,16,0.85); border-radius:10px; padding:12px 16px; color:#fff;}
+  .float-card .lbl{font-size:11px; color:rgba(255,255,255,0.55); font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
+  .float-card .txt{font-family:'Sora',sans-serif; font-weight:600; font-size:14px; margin-top:2px;}
+
+  section{padding:64px 0;}
+  .section-head{max-width:640px; margin-bottom:8px;}
+  .section-head h2{font-size:clamp(24px,2.8vw,34px); font-weight:800;}
+  .section-head h2 em{font-style:normal; color:var(--blue);}
+  .section-head p{margin-top:14px; font-size:16px; color:var(--clay); line-height:1.6;}
+  .section-head + *{margin-top:36px;}
+  .center{text-align:center; margin-left:auto; margin-right:auto;}
+
+  .vsl-section{padding-top:12px; padding-bottom:52px;}
+  .vsl-wrap{max-width:380px; margin:0 auto;}
+  .vsl-frame{position:relative; width:100%; aspect-ratio:9/16; border-radius:20px; overflow:hidden; box-shadow:var(--shadow-lg); background:var(--ink);}
+  .vsl-frame iframe{width:100%; height:100%; border:0; display:block;}
+
+  .calc-section{background:var(--panel);}
+  .calc-card{background:#fff; border-radius:20px; padding:40px; box-shadow:var(--shadow-md); border:1px solid var(--line-soft); max-width:640px; margin:0 auto;}
+  .slider-block{margin-bottom:26px;}
+  .slider-block:last-of-type{margin-bottom:0;}
+  .slider-label{display:flex; justify-content:space-between; align-items:baseline; font-size:13.5px; font-weight:600; color:var(--clay); margin-bottom:12px;}
+  .slider-label .val{font-family:'Sora',sans-serif; font-size:16px; color:var(--ink);}
+  input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:5px; border-radius:100px; background:linear-gradient(90deg, var(--blue) 0%, var(--blue) var(--fill,50%), var(--line) var(--fill,50%)); outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%; background:#fff; border:4px solid var(--blue); box-shadow:0 2px 6px rgba(25,21,16,0.25); cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:14px; height:14px; border-radius:50%; background:#fff; border:4px solid var(--blue); cursor:pointer; border:none;}
+  .calc-results{margin-top:30px; display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:1px; background:var(--line); border-radius:12px; overflow:hidden;}
+  .result-box{background:var(--panel); padding:16px 16px;}
+  .result-box.accent{background:var(--blue);}
+  .result-box .k{font-size:11px; font-weight:600; color:var(--clay);}
+  .result-box.accent .k{color:rgba(255,255,255,0.8);}
+  .result-box .v{margin-top:4px; font-family:'Sora',sans-serif; font-weight:800; font-size:21px; color:var(--ink);}
+  .result-box.accent .v{color:#fff;}
+  .calc-note{margin-top:22px; font-size:14px; color:var(--clay); line-height:1.6;}
+  .calc-card .btn{margin-top:22px;}
+
+  .proof-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
+  .receipt{background:#fff;}
+  .receipt-head{padding:16px 16px 10px; border-bottom:1px dashed var(--line);}
+  .receipt-head .receipt-tag{margin-bottom:8px;}
+  .receipt-head .date{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--clay);}
+  .receipt-body{padding:12px 16px 16px; display:flex; flex-direction:column; gap:8px;}
+  .receipt-row{display:flex; align-items:center; justify-content:space-between; padding:2px 0;}
+  .receipt-row .amt{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px;}
+  .receipt-row .method{font-size:11px; color:var(--clay); margin-top:2px;}
+  .receipt-row .status{font-size:10px; font-weight:600; color:var(--green); background:var(--green-bg); padding:3px 8px; border-radius:5px;}
+  .proof-footnote{margin-top:20px; font-size:13px; color:var(--clay);}
+
+  .list-rows{border-top:1px solid var(--line);}
+  .list-row{display:grid; grid-template-columns:28px 1fr; gap:16px; padding:22px 0; border-bottom:1px solid var(--line);}
+  .list-row .ic{color:var(--blue); padding-top:2px;}
+  .list-row h3, .list-row h4{font-size:16.5px; font-weight:700; margin-bottom:5px;}
+  .list-row p{font-size:14.5px; color:var(--clay); line-height:1.6;}
+
+  .list-grid-2{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--line); border-left:1px solid var(--line);}
+  .list-grid-2 .list-row{border-right:1px solid var(--line); padding:22px;}
+
+  .story-section{background:var(--panel);}
+  .story-grid{display:grid; grid-template-columns:0.8fr 1.2fr; gap:48px; align-items:start;}
+  .story-media{display:grid; grid-template-columns:1fr; gap:10px;}
+  .story-media .main-shot{border-radius:14px; overflow:hidden; box-shadow:var(--shadow-md);}
+  .story-media .sub-shots{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .story-media .sub-shots img{border-radius:10px;}
+  .timeline{margin-top:26px; display:flex; flex-direction:column;}
+  .tl-row{padding:18px 0; border-top:1px solid var(--line);}
+  .tl-row:last-child{border-bottom:1px solid var(--line);}
+  .tl-row .tag{font-family:'Sora',sans-serif; font-size:13px; font-weight:700; color:var(--blue);}
+  .tl-row p{margin-top:6px; font-size:15px; color:var(--ink-soft); line-height:1.65;}
+
+  .cta-band{padding:0;}
+  .cta-band .wrap{background:var(--ink); padding:36px 0; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;}
+  .cta-band h3{color:#fff; font-size:21px; font-weight:700; max-width:480px;}
+  .cta-band .sub{color:rgba(255,255,255,0.55); font-size:14px; margin-top:6px;}
+
+  .system-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .system-media{border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg);}
+  .system-content > p{margin-top:16px; font-size:16px; color:var(--clay); line-height:1.7;}
+  .step-row{margin-top:18px; display:flex; gap:16px; align-items:flex-start; padding-top:18px; border-top:1px solid var(--line);}
+  .step-row:first-of-type{border-top:none; margin-top:24px; padding-top:0;}
+  .step-num{font-family:'Sora',sans-serif; font-size:14px; font-weight:700; color:var(--blue); flex-shrink:0; width:26px;}
+  .step-row h4{font-size:15.5px; font-weight:700;}
+  .step-row p{font-size:14px; color:var(--clay); margin-top:4px; line-height:1.55;}
+
+  .equip-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .equip-media{border-radius:16px; overflow:hidden; box-shadow:var(--shadow-lg);}
+  .equip-content > p{margin-top:14px; font-size:16px; color:var(--clay); line-height:1.7;}
+
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; border-top:1px solid var(--line); border-left:1px solid var(--line);}
+  .test-item{padding:26px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .test-item p{font-size:15px; color:var(--ink-soft); line-height:1.65; font-style:italic;}
+  .test-item .author{margin-top:14px; font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:var(--clay);}
+
+  .final-cta{margin-top:52px; background:var(--ink); border-radius:20px; padding:56px 40px; text-align:center;}
+  .final-cta h2{color:#fff; font-size:clamp(26px,3.6vw,38px); font-weight:800;}
+  .final-cta h2 em{font-style:normal; color:var(--blue);}
+  .final-cta p{color:rgba(255,255,255,0.6); margin-top:14px; font-size:16px; max-width:460px; margin-left:auto; margin-right:auto;}
+  .final-cta .btn{margin-top:28px;}
+
+  footer{padding:32px 0 44px; text-align:center;}
+  footer p{font-size:13px; color:var(--clay);}
+
+  @media (max-width: 980px){
+    .hero-inner, .story-grid, .system-grid, .equip-grid{grid-template-columns:1fr;}
+    .story-grid{gap:32px;}
+    .proof-grid{grid-template-columns:repeat(2,1fr);}
+    .list-grid-2{grid-template-columns:1fr;}
+    .test-grid{grid-template-columns:1fr;}
+    .calc-results{grid-template-columns:1fr;}
+    section{padding:48px 0;}
+    .hero{padding-top:32px;}
+  }
+  @media (max-width: 600px){
+    .proof-grid{grid-template-columns:1fr;}
+    .cta-band .wrap{flex-direction:column; text-align:center; padding:28px 24px;}
+    .final-cta{padding:40px 22px; border-radius:16px;}
+    .calc-card{padding:26px 22px;}
+    .story-media .sub-shots{grid-template-columns:1fr 1fr;}
+    .hero-stats{gap:16px 0;}
+    .stat{border-right:none; margin-right:0; padding-right:0; width:50%;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  .reveal{opacity:0; transform:translateY(12px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.show{opacity:1; transform:none;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="logo hero-logo"><span class="mark"></span>BLINDACELL</div>
+      <h1>Transforme a blindagem de celulares na sua <em>próxima fonte de renda</em>.</h1>
+      <p class="lead">Ganhe entre R$200 e R$500 por atendimento com um serviço premium, rápido e de alta margem. Uma única blindagem leva poucos minutos para ser concluída.</p>
+      <blockquote>Aprenda um método validado para criar uma renda extra ou construir um negócio próprio, mesmo começando do zero.</blockquote>
+      <div class="hero-ctas">
+        <a href="#vsl" class="btn btn-primary">QUERO COMEÇAR A LUCRAR
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="v">6 minutos</div><div class="k">Cura por atendimento</div></div>
+        <div class="stat"><div class="v">Até R$500</div><div class="k">Por atendimento</div></div>
+        <div class="stat"><div class="v">Alta margem</div><div class="k">De lucro</div></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="frame">
+        <img src="img/hero.jpg" alt="Kit profissional de blindagem em estojo">
+        <div class="float-card">
+          <div class="lbl">Sistema</div>
+          <div class="txt">Nano líquida · Cura 6 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="vsl-section" id="vsl">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <h2>Entenda como funciona <em>em poucos minutos</em></h2>
+      <p>Veja o vídeo abaixo para conhecer o produto, como funciona a blindagem e como você pode começar a lucrar com esse serviço.</p>
+    </div>
+    <div class="vsl-wrap reveal">
+      <div class="vsl-frame">
+        <iframe src="https://www.youtube.com/embed/txCI7n287TQ" title="Vídeo Blindacell" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="calc-section" id="calculadora">
+  <div class="wrap">
+    <div class="section-head center reveal">
+      <h2>Quanto você pode <em>faturar por mês</em>?</h2>
+      <p>Não é preciso dezenas de clientes por dia. Bastam 2 a 3 blindagens por semana para começar a construir uma nova fonte de renda.</p>
+    </div>
+    <div class="reveal">
+      <div class="calc-card">
+        <div class="slider-block">
+          <div class="slider-label"><span>Aparelhos por mês</span><span class="val" id="aparelhosVal">30</span></div>
+          <input type="range" id="aparelhosRange" min="4" max="80" value="30" step="1">
+        </div>
+        <div class="slider-block">
+          <div class="slider-label"><span>Ticket médio</span><span class="val" id="ticketVal">R$ 200</span></div>
+          <input type="range" id="ticketRange" min="120" max="500" value="200" step="10">
+        </div>
+        <div class="calc-results">
+          <div class="result-box"><div class="k">Aparelhos</div><div class="v" id="outAparelhos">30</div></div>
+          <div class="result-box"><div class="k">Ticket médio</div><div class="v" id="outTicket">R$ 200</div></div>
+          <div class="result-box accent"><div class="k">Faturamento</div><div class="v" id="outFaturamento">R$ 6.000</div></div>
+        </div>
+        <p class="calc-note">Com aproximadamente 10 atendimentos, o investimento na formação pode ser recuperado. A partir daí, praticamente todo o restante representa faturamento gerado pela sua operação.</p>
+        <a href="#" class="btn btn-primary btn-block wa-link">QUERO ESSE FATURAMENTO</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="prova">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Os números começaram a mudar quando o <em>método mudou</em>.</h2>
+      <p>A blindagem começou como uma renda extra. Depois que passei a aplicar o método que hoje ensino na BLINDACELL, comecei a construir uma nova realidade financeira. Hoje compartilho exatamente esse processo.</p>
+    </div>
+    <div class="proof-grid reveal">
+      <div class="receipt">
+        <div class="receipt-head"><span class="receipt-tag">Comprovante real</span><div class="date">04 Jul 2026</div></div>
+        <div class="receipt-body">
+          <div class="receipt-row"><div><div class="amt">R$ 403,51</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+          <div class="receipt-row"><div><div class="amt">R$ 252,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+        </div>
+      </div>
+      <div class="receipt">
+        <div class="receipt-head"><span class="receipt-tag">Comprovante real</span><div class="date">17 Jun 2026</div></div>
+        <div class="receipt-body">
+          <div class="receipt-row"><div><div class="amt">R$ 280,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+          <div class="receipt-row"><div><div class="amt">R$ 280,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+          <div class="receipt-row"><div><div class="amt">R$ 250,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+          <div class="receipt-row"><div><div class="amt">R$ 324,57</div><div class="method">Crédito 5x</div></div><span class="status">Aprovada</span></div>
+        </div>
+      </div>
+      <div class="receipt">
+        <div class="receipt-head"><span class="receipt-tag">Comprovante real</span><div class="date">30 Jun 2026</div></div>
+        <div class="receipt-body">
+          <div class="receipt-row"><div><div class="amt">R$ 250,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+          <div class="receipt-row"><div><div class="amt">R$ 250,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+        </div>
+      </div>
+      <div class="receipt">
+        <div class="receipt-head"><span class="receipt-tag">Comprovante real</span><div class="date">16 Jun 2026</div></div>
+        <div class="receipt-body">
+          <div class="receipt-row"><div><div class="amt">R$ 280,00</div><div class="method">Pix</div></div><span class="status">Aprovada</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="proof-footnote reveal">Comprovantes reais de recebimentos por atendimentos de blindagem. Resultados variam conforme dedicação, região e execução do método.</p>
+  </div>
+</section>
+
+<section id="beneficios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Por que a <em>blindagem</em> funciona</h2>
+    </div>
+    <div class="list-rows reveal">
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="12" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/></svg></div>
+        <div><h3>Investimento baixo</h3><p>Você começa com pouco material e vai crescendo conforme os atendimentos aparecem.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div><h3>Aplicação rápida</h3><p>Um serviço completo é feito em poucos minutos, sem estrutura complicada.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2" stroke="currentColor" stroke-width="2"/><path d="M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div><h3>Demanda constante</h3><p>Todo mundo tem celular e todo mundo tem medo de quebrar a tela.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.4 8.5-8 9-4.6-.5-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <div><h3>Passo a passo do zero</h3><p>Da primeira aplicação à entrega para o cliente, sem precisar de experiência.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg></div>
+        <div><h3>Serviço com garantia</h3><p>Técnica correta de aplicação para entregar um acabamento profissional.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 18l5-6 4 4 7-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h3>Renda extra ou principal</h3><p>Você decide o ritmo: atender nas horas vagas ou levar como negócio.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section" id="historia">
+  <div class="wrap story-grid">
+    <div class="story-media reveal">
+      <div class="main-shot"><img src="img/story-main.jpg" alt="Fundador da Blindacell em trabalho anterior no porto"></div>
+      <div class="sub-shots">
+        <img src="img/story-sub1.jpg" alt="Porão de navio, carga">
+        <img src="img/story-sub2.jpg" alt="Carregamento de grãos em navio">
+      </div>
+    </div>
+    <div class="reveal">
+      <h2>Do porão do navio para a <em>Blindacell</em></h2>
+      <div class="timeline">
+        <div class="tl-row">
+          <div class="tag">Antes</div>
+          <p>Eu trabalhava como inspetor de carga, fazendo inspeções de porão de navios. Turnos longos, muito frio, muito calor, escalas imprevisíveis e pouco controle sobre o meu próprio tempo.</p>
+        </div>
+        <div class="tl-row">
+          <div class="tag">A virada</div>
+          <p>Foi quando conheci a blindagem de celulares. Um serviço simples de executar, com material acessível, que resolvia um problema que todo mundo tem: o medo de quebrar a tela.</p>
+        </div>
+        <div class="tl-row">
+          <div class="tag">Hoje</div>
+          <p>Passei a trabalhar com blindagem e construí a BLINDACELL. Mudou a minha vida profissional — e é exatamente esse caminho que eu quero te mostrar, do jeito que ele realmente é.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="wrap reveal">
+    <div>
+      <h3>Pronto para dar o primeiro passo?</h3>
+      <div class="sub">Fale agora com nosso time e entenda como começar.</div>
+    </div>
+    <a href="#" class="btn btn-primary wa-link">QUERO COMEÇAR COM A BLINDACELL
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</div>
+
+<section id="sistema">
+  <div class="wrap system-grid">
+    <div class="system-media reveal">
+      <img src="img/sistema.jpg" alt="Frascos do sistema de blindagem">
+    </div>
+    <div class="system-content reveal">
+      <h2>Menos tempo aplicando. <em>Mais tempo faturando.</em></h2>
+      <p>A blindagem é feita com uma nano líquida aplicada diretamente sobre a tela. O líquido preenche as microfissuras do vidro, endurece na superfície e deixa a tela muito mais resistente a impactos e riscos — com acabamento invisível e toque original.</p>
+      <div class="step-row">
+        <div class="step-num">01</div>
+        <div><h4>Líquido de blindagem</h4><p>Proteção nano líquida para telas, aplicada em poucos minutos.</p></div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">02</div>
+        <div><h4>Camada de acabamento</h4><p>Acabamento premium, brilho e recuperação da superfície.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section" id="equipamento">
+  <div class="wrap equip-grid">
+    <div class="equip-content reveal">
+      <h2>Muito mais que uma máquina. Uma ferramenta criada para <em>gerar produtividade</em>.</h2>
+      <p>A máquina de cura UV foi desenvolvida para proporcionar velocidade, praticidade e uma experiência profissional desde a primeira aplicação. Depois de aplicar o líquido, o aparelho entra na câmara e a luz ultravioleta faz a cura da camada de blindagem.</p>
+      <div class="list-grid-2" style="margin-top:22px; background:#fff; border-radius:12px; overflow:hidden;">
+        <div class="list-row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <div><h4>Cura em 6 minutos</h4><p>Ciclo rápido, cliente atendido na hora.</p></div>
+        </div>
+        <div class="list-row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="6" y="2" width="12" height="20" rx="2" stroke="currentColor" stroke-width="2"/></svg></div>
+          <div><h4>Até 2 aparelhos</h4><p>Aplicação simultânea, mais produtividade.</p></div>
+        </div>
+        <div class="list-row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <div><h4>Aletas configuráveis</h4><p>Se adapta a diferentes tamanhos de tela.</p></div>
+        </div>
+        <div class="list-row">
+          <div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.4 8.5-8 9-4.6-.5-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+          <div><h4>Acabamento premium</h4><p>Padrão profissional em todo atendimento.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="equip-media reveal">
+      <img src="img/equipamento.jpg" alt="Máquina de cura UV para blindagem de celulares">
+    </div>
+  </div>
+</section>
+
+<section id="aprendizado">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>O que você realmente vai <em>dominar</em>.</h2>
+    </div>
+    <div class="list-grid-2 reveal">
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l9 4.5-9 4.5-9-4.5L12 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3 12l9 4.5 9-4.5M3 16.5L12 21l9-4.5" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <div><h4>Sistema de blindagem</h4><p>Método completo de blindagem premium, do preparo à entrega.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 18l5-6 4 4 7-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Ticket alto</h4><p>Como aumentar o valor de cada atendimento com produtos complementares de alta margem.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h4>Garantia profissional</h4><p>Como oferecer garantia com segurança e eliminar o medo do pós-venda.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="2"/><circle cx="17" cy="9" r="2.5" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="2"/><path d="M15 14.2c2.3.4 4 2.3 4 4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <div><h4>Estratégias de venda</h4><p>Como conquistar clientes, vender todos os dias e fechar mais serviços.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M10 8l5 4-5 4V8z" fill="currentColor"/></svg></div>
+        <div><h4>Vídeos passo a passo</h4><p>Aplicação completa, técnicas e processos usados diariamente.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="9" width="14" height="8" rx="1.5" stroke="currentColor" stroke-width="2"/><path d="M16 12h3l3 3v2h-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7" cy="19" r="1.6" stroke="currentColor" stroke-width="2"/><circle cx="18" cy="19" r="1.6" stroke="currentColor" stroke-width="2"/></svg></div>
+        <div><h4>Fornecedores homologados</h4><p>Acesso aos fornecedores de líquidos, máquina e acessórios premium.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.4 8.5-8 9-4.6-.5-8-4-8-9V7l8-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <div><h4>Plataforma de treinamento</h4><p>Conteúdo em módulos, com acesso permanente para estudar no seu ritmo.</p></div>
+      </div>
+      <div class="list-row">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 14v-2a8 8 0 0116 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><rect x="2" y="14" width="5" height="6" rx="1.5" stroke="currentColor" stroke-width="2"/><rect x="17" y="14" width="5" height="6" rx="1.5" stroke="currentColor" stroke-width="2"/></svg></div>
+        <div><h4>Suporte vitalício</h4><p>Acompanhamento contínuo para tirar dúvidas e evoluir junto com você.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="depoimentos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <h2>Quem já <em>começou</em></h2>
+    </div>
+    <div class="test-grid reveal">
+      <div class="test-item">
+        <p>Comecei atendendo colegas de trabalho no fim de semana. Hoje já tenho clientes recorrentes toda semana.</p>
+        <div class="author">Rafael M.</div>
+      </div>
+      <div class="test-item">
+        <p>Achei que fosse difícil, mas o passo a passo é simples. Na primeira semana já fiz meus primeiros serviços.</p>
+        <div class="author">Juliana S.</div>
+      </div>
+      <div class="test-item">
+        <p>O suporte fez toda a diferença. Sempre que travei em alguma dúvida, tive resposta rápida.</p>
+        <div class="author">Diego A.</div>
+      </div>
+    </div>
+
+    <div class="final-cta reveal">
+      <h2>Comece hoje a sua nova <em>fonte de renda</em></h2>
+      <p>Aprenda a técnica, monte o seu kit e faça o seu primeiro atendimento.</p>
+      <a href="#" class="btn btn-primary wa-link">FALAR NO WHATSAPP AGORA
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Blindacell. Resultados variam conforme dedicação, região e execução do método.</p>
+  </div>
+</footer>
+
+<script>
+  const WA_LINK = "https://wa.me/5547984638658?text=" + encodeURIComponent("Olá! Vim pela página da Blindacell e quero saber mais sobre a blindagem de celulares.");
+  document.querySelectorAll('.wa-link').forEach(el => el.setAttribute('href', WA_LINK));
+
+  const aparelhosRange = document.getElementById('aparelhosRange');
+  const ticketRange = document.getElementById('ticketRange');
+  const aparelhosVal = document.getElementById('aparelhosVal');
+  const ticketVal = document.getElementById('ticketVal');
+  const outAparelhos = document.getElementById('outAparelhos');
+  const outTicket = document.getElementById('outTicket');
+  const outFaturamento = document.getElementById('outFaturamento');
+
+  function fmtBRL(n){ return 'R$ ' + n.toLocaleString('pt-BR'); }
+
+  function updateSliderFill(el){
+    const min = +el.min, max = +el.max, val = +el.value;
+    const pct = ((val - min) / (max - min)) * 100;
+    el.style.setProperty('--fill', pct + '%');
+  }
+
+  function updateCalc(){
+    const aparelhos = +aparelhosRange.value;
+    const ticket = +ticketRange.value;
+    const faturamento = aparelhos * ticket;
+    aparelhosVal.textContent = aparelhos;
+    ticketVal.textContent = fmtBRL(ticket);
+    outAparelhos.textContent = aparelhos;
+    outTicket.textContent = fmtBRL(ticket);
+    outFaturamento.textContent = fmtBRL(faturamento);
+    updateSliderFill(aparelhosRange);
+    updateSliderFill(ticketRange);
+  }
+  [aparelhosRange, ticketRange].forEach(el => el.addEventListener('input', updateCalc));
+  updateCalc();
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+  }, {threshold:0.12});
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+<script>
+// Captura fbclid da URL e salva cookie _fbc
+(function(){
+  try {
+    var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+    if(fbclid) {
+      var existing = document.cookie.split(';').find(function(c){ return c.trim().startsWith('_fbc='); });
+      if(!existing || existing.indexOf(fbclid) === -1) {
+        var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
+        document.cookie = '_fbc=' + fbc + '; max-age=7776000; path=/; SameSite=Lax';
+      }
+    }
+  } catch(e) {}
+})();
+
+// Facebook Pixel
+function loadPixel() {
+  if(window._pixelLoaded) return;
+  window._pixelLoaded = true;
+
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+
+var pageViewId = 'pv_' + Date.now() + '_' + Math.random().toString(36).substr(2,9);
+var viewContentId = 'vc_' + Date.now() + '_' + Math.random().toString(36).substr(2,9);
+
+fbq('init','1668414670863159');
+fbq('track','PageView',{},{eventID: pageViewId});
+fbq('track','ViewContent',{content_name:'Blindacell',content_category:'Curso',currency:'BRL'},{eventID: viewContentId});
+
+function attachPixel(){
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el){
+    if(el._pixelBound) return;
+    el._pixelBound=true;
+    el.addEventListener('click',function(){
+      var contactId='ct_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);
+      fbq('track','Contact',{},{eventID:contactId});
+    },{once:true});
+  });
+}
+if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',attachPixel);}
+else{attachPixel();}
+
+}
+// Carrega pixel automaticamente assim que a página termina de carregar (não espera interação, então cobre 100% dos visitantes)
+if(document.readyState==='complete'){loadPixel();}else{window.addEventListener('load',loadPixel,{once:true});}
+// Fallback: carrega em 4s mesmo se o evento load atrasar
+setTimeout(loadPixel, 4000);
+</script>
+
+</body>
+</html>
