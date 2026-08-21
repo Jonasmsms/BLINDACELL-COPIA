@@ -11,7 +11,7 @@
 <meta property="og:image" content="img/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" fetchpriority="high">
 <style>
   :root{
     --ink:#191510;
@@ -719,7 +719,8 @@
   (function(){
     const imgs = document.querySelectorAll('.story-media .main-shot img, .system-media img, .equip-media img');
     if(!imgs.length) return;
-    function onScroll(){
+    let ticking = false;
+    function update(){
       imgs.forEach(img => {
         const r = img.getBoundingClientRect();
         const vh = window.innerHeight;
@@ -727,9 +728,16 @@
         const center = r.top + r.height/2 - vh/2;
         img.style.transform = 'translateY(' + (center * -0.06) + 'px) scale(1.1)';
       });
+      ticking = false;
+    }
+    function onScroll(){
+      if(!ticking){
+        requestAnimationFrame(update);
+        ticking = true;
+      }
     }
     window.addEventListener('scroll', onScroll, {passive:true});
-    onScroll();
+    update();
   })();
 
   const aparelhosRange = document.getElementById('aparelhosRange');
